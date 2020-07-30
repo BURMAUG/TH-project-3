@@ -15,14 +15,8 @@ const otherInputTextField = document.getElementById("other-title");
 otherInputTextField.style.display = "none";
 //hiding the other textfield based on
 const activities = document.querySelectorAll('input[type="checkbox"]');
+console.log(activities);
 //Get the whole activity box;
-for (let i = 0; i < activities.length; i++) {
-  console.log(activities[i]);
-  activities[i].addEventListener("change", (e) => {
-    const target = e.target;
-    console.log(target);
-  });
-}
 
 //whether or not 'other' was clicked
 seleted.addEventListener("change", (e) => {
@@ -86,3 +80,26 @@ designElement.addEventListener("change", (e) => {
     }
   }
 });
+
+//adding the eventListeners to the checkbox
+for (let i = 0; i < activities.length; i++) {
+  activities[i].addEventListener("change", (e) => {
+    const target = e.target;
+    const selected = activities[i];
+    //console.log(selected.name);
+    for (let j = 0; j < activities.length; j++) {
+      if (selected.checked === true) {
+        console.log("true");
+        if (
+          selected.getAttribute("data-day-and-time") ===
+            activities[j].getAttribute("data-day-and-time") &&
+          selected.name !== activities[j].name
+        ) {
+          activities[j].disabled = true;
+        }
+      } else {
+        activities[j].disabled = false;
+      }
+    }
+  });
+}
