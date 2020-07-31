@@ -94,17 +94,14 @@ for (let i = 0; i < activities.length; i++) {
     //use selected to check for correctness
     for (let j = 0; j < activities.length; j++) {
       const dayTimeForJ = activities[j].getAttribute("data-day-and-time");
+
       if (isChecked) {
         //use selected and checked through the checkbox list
         if (dayTime === dayTimeForJ && selected.name !== activities[j].name) {
           activities[j].disabled = true; //disable the next one with the same atrtribute
         }
       } else {
-        if (
-          selected.getAttribute("data-day-and-time") ===
-            activities[j].getAttribute("data-day-and-time") &&
-          selected.name !== activities[j].name
-        ) {
+        if (dayTime === dayTimeForJ && selected.name !== activities[j].name) {
           activities[j].disabled = false; // enable it again after disable the selected
         }
       }
