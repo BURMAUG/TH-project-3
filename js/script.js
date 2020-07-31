@@ -85,25 +85,18 @@ designElement.addEventListener("change", (e) => {
 const arrays = [];
 for (let i = 0; i < activities.length; i++) {
   activities[i].addEventListener("change", (e) => {
-    const target = e.target;
-    arrays.push(activities[i].getAttribute("data-cost"));
-    console.log(arrays);
-    //if (arrays.length > 1 ? "yeah shit" : arrays[i].getAttribute("data-cost"));
+    const selected = activities[i]; //get the activity selected and store it in selected
+    const dayTime = selected.getAttribute("data-day-and-time"); //getting data for data-time
+    const isChecked = selected.checked === true;
 
-    //console.log(target.value);
-    //get the activity selected and store it in selected
-    const selected = activities[i];
+    arrays.push(activities[i].getAttribute("data-cost"));
 
     //use selected to check for correctness
     for (let j = 0; j < activities.length; j++) {
-      //if true
-      if (selected.checked === true) {
+      const dayTimeForJ = activities[j].getAttribute("data-day-and-time");
+      if (isChecked) {
         //use selected and checked through the checkbox list
-        if (
-          selected.getAttribute("data-day-and-time") ===
-            activities[j].getAttribute("data-day-and-time") &&
-          selected.name !== activities[j].name
-        ) {
+        if (dayTime === dayTimeForJ && selected.name !== activities[j].name) {
           activities[j].disabled = true; //disable the next one with the same atrtribute
         }
       } else {
