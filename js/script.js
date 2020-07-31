@@ -82,23 +82,38 @@ designElement.addEventListener("change", (e) => {
 });
 
 //adding the eventListeners to the checkbox
+const arrays = [];
 for (let i = 0; i < activities.length; i++) {
   activities[i].addEventListener("change", (e) => {
     const target = e.target;
+    arrays.push(activities[i].getAttribute("data-cost"));
+    console.log(arrays);
+    //if (arrays.length > 1 ? "yeah shit" : arrays[i].getAttribute("data-cost"));
+
+    //console.log(target.value);
+    //get the activity selected and store it in selected
     const selected = activities[i];
-    //console.log(selected.name);
+
+    //use selected to check for correctness
     for (let j = 0; j < activities.length; j++) {
+      //if true
       if (selected.checked === true) {
-        console.log("true");
+        //use selected and checked through the checkbox list
         if (
           selected.getAttribute("data-day-and-time") ===
             activities[j].getAttribute("data-day-and-time") &&
           selected.name !== activities[j].name
         ) {
-          activities[j].disabled = true;
+          activities[j].disabled = true; //disable the next one with the same atrtribute
         }
       } else {
-        activities[j].disabled = false;
+        if (
+          selected.getAttribute("data-day-and-time") ===
+            activities[j].getAttribute("data-day-and-time") &&
+          selected.name !== activities[j].name
+        ) {
+          activities[j].disabled = false; // enable it again after disable the selected
+        }
       }
     }
   });
