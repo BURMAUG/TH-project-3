@@ -3,20 +3,26 @@ const nameInputField = document.getElementById("name");
 nameInputField.focus();
 //get all children of the select so that i can lis
 const seleted = document.querySelector("select");
-//console.log(seleted);
 //i have to grab the the design and color element
 const designElement = document.getElementById("design"); //design
-//console.log(designElement.value);
 const colorElement = document.getElementById("color"); //colour
-//console.log(colorElement);
 
 //get the input field to hide first
 const otherInputTextField = document.getElementById("other-title");
 otherInputTextField.style.display = "none";
-//hiding the other textfield based on
-const activities = document.querySelectorAll('input[type="checkbox"]');
-console.log(activities);
 //Get the whole activity box;
+const activities = document.querySelectorAll('input[type="checkbox"]');
+
+/***
+ * Create a div.
+ * append the dic to the checkbox area
+ * and display a message with the total sum of purchase
+ * */
+const getActivities = document.querySelector(".activities");
+const checkboxDiv = document.createElement("div");
+checkboxDiv.className = "showtotal hide_total";
+checkboxDiv.innerHTML = `Total: $`;
+getActivities.appendChild(checkboxDiv);
 
 //whether or not 'other' was clicked
 seleted.addEventListener("change", (e) => {
@@ -47,12 +53,11 @@ if (designElement.value === "Select Theme") {
 //get the please select at Theme
 designElement.addEventListener("change", (e) => {
   const target = e.target.value;
-  console.log(target);
   const selectall = document.querySelector("#color");
+
   if (target === "js puns") {
     for (let i = 0; i < selectall.length; i++) {
       selectall[i].hidden = false;
-      //console.log(selectall[i].value);
       if (
         selectall[i].value === "cornflowerblue" ||
         selectall[i].value === "darkslategrey" ||
@@ -65,7 +70,6 @@ designElement.addEventListener("change", (e) => {
     }
   } else {
     for (let i = 0; i < selectall.length; i++) {
-      //console.log(selectall[i].value);
       selectall[i].hidden = false; //make all of them visible for the moment
       //this if statement check for some possiblities and displays a desired result
       if (
@@ -81,15 +85,12 @@ designElement.addEventListener("change", (e) => {
   }
 });
 
-//adding the eventListeners to the checkbox
-const arrays = [];
+//adding an eventListeners to the checkbox
 for (let i = 0; i < activities.length; i++) {
   activities[i].addEventListener("change", (e) => {
     const selected = activities[i]; //get the activity selected and store it in selected
     const dayTime = selected.getAttribute("data-day-and-time"); //getting data for data-time
     const isChecked = selected.checked === true;
-
-    arrays.push(activities[i].getAttribute("data-cost"));
 
     //use selected to check for correctness
     for (let j = 0; j < activities.length; j++) {
